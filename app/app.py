@@ -79,7 +79,7 @@ def get_ip():
     return ip_address
 
 def get_location_by_ip(ip_address):
-    loc_api = requests.get(f'http://ip-api.com/json/{ip_address}')
+    loc_api = requests_retry_session().get(f'http://ip-api.com/json/{ip_address}')
     loc_api.raise_for_status()
     loc_data = loc_api.json()
     zipcode = loc_data['zip']
@@ -116,7 +116,7 @@ def get_geo_by_address(address_input):
 def get_census_data(lat, lng):
     # the census API requires queries via FIPS geocodes, which we get via this coordinates query
     # see https://geo.fcc.gov/api/census/
-    geocode = requests.get(f'https://geo.fcc.gov/api/census/block/find?latitude={lat}&longitude={lng}&showall=true&format=json')
+    geocode = requests_retry_session().get(f'https://geo.fcc.gov/api/census/block/find?latitude={lat}&longitude={lng}&showall=true&format=json')
     geocode.raise_for_status()
 
     geocodej = geocode.json()
