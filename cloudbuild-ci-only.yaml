@@ -23,7 +23,7 @@ steps:
       cat image-digest.txt
     id: push
     # Test against my vulnerability policy
-  - name: gcr.io/$PROJECT_ID/kritis-signer
+  - name: us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/kritis-signer
     entrypoint: /bin/bash
     args:
     - -c

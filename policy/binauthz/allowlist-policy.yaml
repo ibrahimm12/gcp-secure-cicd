@@ -1,0 +1,6 @@
+admissionWhitelistPatterns:
+- namePattern: us-central1-docker.pkg.dev/playground-s-11-74727dd9/**
+defaultAdmissionRule:
+  enforcementMode: ENFORCED_BLOCK_AND_AUDIT_LOG
+  evaluationMode: ALWAYS_DENY
+name: projects/playground-s-11-74727dd9/policy

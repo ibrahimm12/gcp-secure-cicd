@@ -1,0 +1,7 @@
+defaultAdmissionRule:
+  enforcementMode: ENFORCED_BLOCK_AND_AUDIT_LOG
+  evaluationMode: REQUIRE_ATTESTATION
+  requireAttestationsBy:
+  - projects/playground-s-11-74727dd9/attestors/built-by-cloud-build
+  - projects/playground-s-11-74727dd9/attestors/build-vuln-check
+name: projects/playground-s-11-74727dd9/policy
