@@ -1,4 +1,4 @@
-# replace "project-id-here" in the three targets below with your actual project(s)
+# replace "playground-s-11-74727dd9" in the three targets below with your actual project(s)
 apiVersion: deploy.cloud.google.com/v1
 kind: DeliveryPipeline
 metadata:
@@ -18,7 +18,7 @@ metadata:
   name: test-sec
 description: test cluster
 gke:
-  cluster: projects/project-id-here/locations/us-central1-a/clusters/test-sec
+  cluster: projects/playground-s-11-74727dd9/locations/us-central1-a/clusters/test-sec
 ---
 
 apiVersion: deploy.cloud.google.com/v1
@@ -28,4 +28,4 @@ metadata:
 description: prod cluster
 requireApproval: true
 gke:
-  cluster: projects/project-id-here/locations/us-central1-a/clusters/prod-sec
+  cluster: projects/playground-s-11-74727dd9/locations/us-central1-a/clusters/prod-sec
