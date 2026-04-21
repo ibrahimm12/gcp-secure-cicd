@@ -54,8 +54,6 @@ images:
 options:
   logging: CLOUD_LOGGING_ONLY
   requestedVerifyOption: VERIFIED
-  pool:
-    name: 'projects/$PROJECT_ID/locations/us-central1/workerPools/private-pool'
 # Set these variables in your trigger or directly in the substitutions stanza below: 
 #substitutions:
 #    _KMS_KEY_NAME: MISSING_KMS_KEY_NAME 
