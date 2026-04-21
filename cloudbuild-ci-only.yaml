@@ -41,6 +41,7 @@ steps:
 images:
 - us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:ci-only
 options:
+  logging: CLOUD_LOGGING_ONLY
   requestedVerifyOption: VERIFIED
 # Update with your project, key info, and notes below
 #substitutions:
