@@ -3,6 +3,8 @@ import re
 import requests
 import json
 from flask import Flask, render_template, request
+from urllib3.util.retry import Retry
+from requests.adapters import HTTPAdapter
 
 app = Flask(__name__)
 
@@ -72,7 +74,7 @@ def get_ip():
     # GCP Cloud Run needs X-Forwarded_For
     ip_address = request.headers.get('X-Forwarded-For', request.remote_addr) 
     # For dev testing, get external IP from environment variable
-    if (re.search('^192|^127|^0\.|^172|^10\.', ip_address)):
+    if (re.search(r'^192|^127|^0\.|^172|^10\.', ip_address)):
         ip_address = os.environ.get('DEV_EXT_IP')  
     return ip_address
 
@@ -86,8 +88,16 @@ def get_location_by_ip(ip_address):
     lng = loc_data['lon']
     return zipcode, country, lat, lng
 
+def requests_retry_session(retries=3, backoff_factor=0.3, status_forcelist=(500, 502, 503, 504)):
+    session = requests.Session()
+    retry = Retry(total=retries, read=retries, connect=retries, backoff_factor=backoff_factor, status_forcelist=status_forcelist)
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
+
 def get_geo_by_address(address_input):
-    address_query = requests.get(f'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address={address_input}&benchmark=2020&format=json')
+    address_query = requests_retry_session().get(f'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address={address_input}&benchmark=2020&format=json')
     address_query.raise_for_status()
     
     address_query_json = address_query.json()
@@ -116,7 +126,7 @@ def get_census_data(lat, lng):
     county_code = FIPS_code[2:5]
     
     # get county population from the census API
-    population = requests.get(f'https://api.census.gov/data/2019/pep/population?get=POP,NAME,DENSITY&for=county:{county_code}&in=state:{state_code}')
+    population = requests_retry_session().get(f'https://api.census.gov/data/2019/pep/population?get=POP,NAME,DENSITY&for=county:{county_code}&in=state:{state_code}')
     population.raise_for_status()
     pop_json = population.json()
     # grab the population value, convert to int
