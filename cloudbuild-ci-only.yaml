@@ -23,7 +23,7 @@ steps:
       cat image-digest.txt
     id: push
     # Test against my vulnerability policy
-  - name: gcr.io/kritis-public/kritis-signer
+  - name: gcr.io/kritis-public/kritis-signer:v0.2.3
     entrypoint: /bin/bash
     args:
     - -c

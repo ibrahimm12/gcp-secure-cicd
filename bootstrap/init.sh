@@ -15,7 +15,7 @@ gcloud config set project $PROJECT_ID
 # Enables various APIs you'll need
 gcloud services enable container.googleapis.com cloudbuild.googleapis.com \
 artifactregistry.googleapis.com clouddeploy.googleapis.com \
-cloudresourcemanager.googleapis.com binaryauthorization.googleapis.com \
+cloudresourcemanager.googleapis.com binaryauthorization.googleapis.com containerregistry.googleapis.com \
 cloudkms.googleapis.com
 # add the clouddeploy.jobRunner role to your compute service account
 gcloud projects add-iam-policy-binding $PROJECT_ID \
