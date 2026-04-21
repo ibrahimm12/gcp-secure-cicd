@@ -52,6 +52,7 @@ steps:
 images:
 - us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/pop-stats:${COMMIT_SHA}
 options:
+  logging: CLOUD_LOGGING_ONLY
   requestedVerifyOption: VERIFIED
   pool:
     name: 'projects/$PROJECT_ID/locations/us-central1/workerPools/private-pool'
