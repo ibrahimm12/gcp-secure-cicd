@@ -23,6 +23,7 @@ steps:
       cat image-digest.txt
     id: push
   - name: us-central1-docker.pkg.dev/$PROJECT_ID/pop-stats/kritis-signer
+  - name: gcr.io/kritis-public/kritis-signer
     entrypoint: /bin/bash
     args:
     - -c
