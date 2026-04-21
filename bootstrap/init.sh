@@ -1,5 +1,11 @@
 # Initializes APIS, sets up the Google Cloud Deploy pipeline
-# bail if PROJECT_ID is not set 
+
+# Attempt to auto-detect PROJECT_ID if not set
+if [[ -z "${PROJECT_ID}" ]]; then
+  export PROJECT_ID=$(gcloud config get-value project 2>/dev/null)
+fi
+
+# bail if PROJECT_ID is still not set 
 if [[ -z "${PROJECT_ID}" ]]; then
   echo "The value of PROJECT_ID is not set. Be sure to run \"export PROJECT_ID=YOUR-PROJECT\" first"
   return
